@@ -161,6 +161,7 @@ target/
 .ipynb_checkpoints/
 
 # Don't include the data folder or the results
+data/
 results/
 
 # History files
