@@ -1,11 +1,6 @@
-setwd("~/Documents/Xime/1c_Prediction_models/CEFITH")
-Sys.setenv(WORKING_DIR=getwd())
+source("src/heatmap.rf.r")
 
-Sys.setenv(RSCRIPTS="~/Documents/Xime/Random_forest/")
-
-source(paste(Sys.getenv("RSCRIPTS"),"heatmap.rf.r",sep="/"))
-
-work.subset= read.table("TABLEgenes_RFinput.txt",header=TRUE)
+work.subset= read.table("data/TABLEgenes_RFinput.txt",header=TRUE)
 n.otus = 60199 # change accordingly 
 
 #Random forest
@@ -22,5 +17,3 @@ print(cbind(sort(work.subset.rf$mean.importance[work.subset.rf$mean.importance >
 
 out <- (cbind(sort(work.subset.rf$mean.importance[work.subset.rf$mean.importance > -1], decreasing=T)))
 write.table (out, file = "RF_Output_CEFITHgenes.txt", sep = "\t", quote = FALSE, append = FALSE)
-
-
