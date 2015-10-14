@@ -1,7 +1,7 @@
 source("src/heatmap.rf.r")
 
 work.subset= read.table("data/TABLEgenes_RFinput.txt",header=TRUE)
-n.otus = 60199 # change accordingly 
+n.otus = 60199 # change accordingly
 
 #Random forest
 library(randomForest)
