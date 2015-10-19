@@ -1,8 +1,6 @@
 source(file.path("src", "heatmap.rf.r"))
 library(randomForest)
 
-
-
 # family standardized data
 # family_standardized = load_data_table('RDP_family_AH_standarized.txt')
 mapping_maria = load_data_table('mapping_maria_BL.txt')
@@ -18,27 +16,30 @@ preprocess_mat = function(infile) {
 
 insert.at = function(a, pos, ...){
   dots <- list(...)
-  stopifnot(length(dots)==length(pos))
-  result <- vector("list",2*length(pos)+1)
-  result[c(TRUE,FALSE)] <- split(a, cumsum(seq_along(a) %in% (pos+1)))
-  result[c(FALSE,TRUE)] <- dots
-  unlist(result)
+  if (length(a) > pos) {
+    stopifnot(length(dots)==length(pos))
+    result <- vector("list",2*length(pos)+1)
+    result[c(TRUE,FALSE)] <- split(a, cumsum(seq_along(a) %in% (pos+1)))
+    result[c(FALSE,TRUE)] <- dots
+    unlist(result)
+  } else {
+    return(unlist(c(a, dots)))
+  }
 }
 
 jackknife = function(X, y, name) {
   num_features = dim(X)[2]
   accuracy = numeric(length=num_features)
-  MI = matrix(NA, num_features, num_features)
+  mean_importance_matrix = matrix(NA, num_features, num_features)
   for (i in 1:num_features) {
     X.rf = heatmap.rf(X[,-i], y, nfolds=-1)
     accuracy[i] = sum(X.rf$y == X.rf$predicted)/length(X.rf$y)
     mean.importance = X.rf$mean.importance
-    MI[,i] = insert.at(mean.importance, i, NA)
+    mean_importance_matrix[,i] = insert.at(mean.importance, i, NA)
   }
-  write.table(MI, file = file.path("results", "mean_importance_" + name), sep = "\t", quote = FALSE, append = FALSE)
+  write.table(mean_importance_matrix, file = file.path("results", "mean_importance_" + name), sep = "\t", quote = FALSE, append = FALSE)
   return(accuracy)
 }
-
 
 # a = jackknife(preprocess_mat(infiles[1]), persistence)
 mat_acc = sapply(infiles, function(x) {jackknife(preprocess_mat(x), mapping_maria$Persistence, x)})
