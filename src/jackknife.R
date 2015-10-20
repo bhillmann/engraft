@@ -24,7 +24,6 @@ jackknife = function(X, y, name) {
   num_features = dim(X)[2]
   accuracy = numeric(length=num_features)
   mean_importance_matrix = matrix(NA, num_features, num_features)
-  print(colnames(X))
   for (i in 1:num_features) {
     X.rf = heatmap.rf(X[,-i], y, nfolds=-1)
     accuracy[i] = sum(X.rf$y == X.rf$predicted)/length(X.rf$y)
