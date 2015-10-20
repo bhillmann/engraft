@@ -1,0 +1,5 @@
+set.seed(1)
+x = data.frame(lapply(rep(23, 3), function(x) {abs(rnorm(x))}))
+y = data.frame(lapply(rep(23, 5), function(x) {abs(rnorm(x))}))
+write.table(t(x), file=file.path("data", "x.txt"), sep = "\t", quote = FALSE, append = FALSE)
+write.table(t(y), file=file.path("data", "y.txt"), sep = "\t", quote = FALSE, append = FALSE)
