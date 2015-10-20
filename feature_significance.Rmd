@@ -13,13 +13,6 @@ library(lmtest)
 infiles = c('genes_CEFITH_standarized.txt', 'RDP_family_AH_standarized.txt',
             'RDP_genus_AH_standarized.txt', 'OTU_AH_standarized.txt')
 
-preprocess_mat = function(infile) {
-  df = load_data_table(infile)
-  mat = t(df[,-1])
-  colnames(mat) = df[,1]
-  return(mat)
-}
-
 otu_mat = preprocess_mat(infiles[4])
 genes_mat = preprocess_mat(infiles[1])
 
