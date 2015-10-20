@@ -1,32 +1,31 @@
 ---
-title: "feature_significance"
+title: "Comparing the significance of prot_000000001830 and prot_000000000877 to OTU_11"
 author: "Benjamin Hillmann"
-date: "October 19, 2015"
+date: "October 20, 2015"
 output: pdf_document
 ---
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(lmtest)
-```
-
-```{r}
 infiles = c('genes_CEFITH_standarized.txt', 'RDP_family_AH_standarized.txt',
             'RDP_genus_AH_standarized.txt', 'OTU_AH_standarized.txt')
+```
 
-otu_mat = preprocess_mat(infiles[4])
-genes_mat = preprocess_mat(infiles[1])
+## The significance of prot_000000000877 to OTU_11
 
-
+```{r}
 log_transform = function(x) {
-  x = x[!is.na(x)]
   constant = min(x[x > 0])/2.
   x = x + constant
   x = x/sum(x)
   log(x)
 }
 
-prot_000000000877 = log_transform(genes_mat[,'prot_000000000877'])
-otu_11 = log_transform(otu_mat[,'OTU_11'])
+otu_log_mat = apply(preprocess_mat(infiles[4]), 1, log_transform)
+genes_log_mat = apply(preprocess_mat(infiles[1]), 1, log_transform)
+
+prot_000000000877 = genes_log_mat['prot_000000000877',]
+otu_11 = otu_log_mat['OTU_11',]
 
 mapping_maria = load_data_table('mapping_maria_BL.txt')
 
@@ -39,4 +38,19 @@ summary(lm_otu_11)
 
 coxtest(lm_prot_000000000877, lm_otu_11)
 jtest(lm_prot_000000000877, lm_otu_11)
+
+```
+
+## The significance of prot_000000001830 to OTU_11
+
+```{r}
+
+prot_000000001830 = genes_log_mat['prot_000000001830',]
+
+lm_prot_000000001830 = lm(dependent~prot_000000001830)
+
+summary(prot_000000001830)
+
+coxtest(lm_prot_000000001830, lm_otu_11)
+jtest(lm_prot_000000001830, lm_otu_11)
 ```

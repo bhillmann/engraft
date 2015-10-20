@@ -1,4 +1,3 @@
-library(pscl)
 library(lmtest)
 
 infiles = c('genes_CEFITH_standarized.txt', 'RDP_family_AH_standarized.txt', 'RDP_genus_AH_standarized.txt', 'OTU_AH_standarized.txt')

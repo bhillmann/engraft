@@ -21,7 +21,6 @@ insert.at = function(a, pos, ...){
 }
 
 jackknife = function(X, y, name) {
-  print(name)
   num_features = dim(X)[2]
   accuracy = numeric(length=num_features)
   mean_importance_matrix = matrix(NA, num_features, num_features)
