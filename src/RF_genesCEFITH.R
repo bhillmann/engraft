@@ -1,5 +1,7 @@
 source("src/heatmap.rf.r")
 
+infiles = c('genes_CEFITH_standarized.txt', 'RDP_family_AH_standarized.txt', 'RDP_genus_AH_standarized.txt', 'OTU_AH_standarized.txt')
+
 work.subset= read.table("data/TABLEgenes_RFinput.txt",header=TRUE)
 n.otus = 60199 # change accordingly
 
