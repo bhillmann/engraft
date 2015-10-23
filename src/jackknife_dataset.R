@@ -1,4 +1,4 @@
-source(file.path("src", "jackknife.r"))
+source(file.path("src", "jackknife.R"))
 
 mapping_maria = load_data_table('mapping_maria_BL.txt')
 
