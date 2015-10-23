@@ -1,4 +1,4 @@
-source('env.R')
+source(normalizePath(getwd()), 'env.R')
 source(file.path("src", "heatmap.rf.r"))
 library(randomForest)
 

@@ -1,4 +1,4 @@
-source('env.R')
+source(normalizePath(getwd()), 'env.R')
 source("src/heatmap.rf.r")
 
 infiles = c('genes_CEFITH_standarized.txt', 'RDP_family_AH_standarized.txt', 'RDP_genus_AH_standarized.txt', 'OTU_AH_standarized.txt')
