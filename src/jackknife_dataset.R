@@ -1,4 +1,4 @@
-#!/usr/bin/env Rscript
+source('env.R')
 source(file.path("src", "jackknife.r"))
 
 mapping_maria = load_data_table('mapping_maria_BL.txt')
