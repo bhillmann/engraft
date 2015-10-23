@@ -1,4 +1,3 @@
-source('env.R')
 source(file.path("src", "heatmap.rf.r"))
 library(randomForest)
 

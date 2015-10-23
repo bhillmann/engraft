@@ -1,4 +1,3 @@
-source('env.R')
 #normalize: usually set this to false when we have merged L1-L6 taxa files 
 load.data<-function(mapfile = "map.txt", otufile="otu_table_mc2_w_tax_keep2_sorted_L6.txt",
 			minOTUInSamples = .000, normalize=TRUE, use.env.var=TRUE)

@@ -1,4 +1,3 @@
-source('env.R')
 source(file.path("src", "jackknife.r"))
 
 set.seed(1)
