@@ -20,5 +20,5 @@ preprocess_normalized_mat = function(infile) {
 
 load_data_table = function(inf) {
   inf_path = file.path(getwd(), 'data', inf)
-  return(read.table(inf_path, sep='\t', head=F))
+  return(read.table(inf_path, sep='\t', head=T))
 }

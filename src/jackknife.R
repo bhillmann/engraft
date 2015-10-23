@@ -40,3 +40,4 @@ run_jackknife_infiles = function(XX, y, names) {
   rownames(mat_acc) = names
   write.table(mat_acc, file=file.path("results", "jackknife_accuracy.txt"), sep = "\t", quote = FALSE, append = FALSE)
 }
+

@@ -10,5 +10,3 @@ y = data.frame(lapply(rep(22, 5), function(x) {abs(rnorm(x))}))
 colnames(y) = 1:5
 
 run_jackknife_infiles(list(x, y), mapping_maria$Persistence, c('x', 'y'))
-
-
