@@ -46,6 +46,6 @@
 	result$mean.importance <- rowMeans(var.imp)
 	result$rmse <- sqrt(mean((y - result$predicted)**2))
 	result$nfolds <- nfolds
-    result$params <- list(...)
-    return(result)
+  result$params <- list(...)
+  return(result)
 }
