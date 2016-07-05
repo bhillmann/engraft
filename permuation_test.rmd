@@ -1,0 +1,41 @@
+---
+title: "Permutation Test"
+author: "Benjamin Hillmann"
+date: "July 5, 2016"
+output: pdf_document
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+infiles = c('RDP_family_AH_standarized.txt',
+            'RDP_genus_AH_standarized.txt', 'OTU_AH_standarized.txt')
+source(file.path('src', 'rf_permutation_test.R'))
+```
+
+## The significance of prot_000000000877 to OTU_11
+
+```{r}
+log_transform = function(x) {
+  constant = min(x[x > 0])/2.
+  x = x + constant
+  x = x/sum(x)
+  log(x)
+}
+
+otu_log_mat = t(apply(preprocess_mat(infiles[3]), 1, log_transform))
+genus_log_mat = t(apply(preprocess_mat(infiles[2]), 1, log_transform))
+family_log_mat = t(apply(preprocess_mat(infiles[1]), 1, log_transform))
+
+mapping_maria = load_data_table('mapping_maria_BL.txt')
+
+dependent = as.factor(mapping_maria$Persistence)
+acc_1 = permutation_test(otu_log_mat, dependent, num_permutations = 10)
+acc_2 = permutation_test(genus_log_mat, dependent, num_permutations = 10)
+acc_3 = permutation_test(family_log_mat, dependent, num_permutations = 10)
+
+```
+
+```{r}
+print(acc_1)
+print(acc_2)
+print(acc_3)
+```
