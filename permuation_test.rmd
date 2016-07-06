@@ -9,9 +9,9 @@ output: pdf_document
 infiles = c('RDP_family_AH_standarized.txt',
             'RDP_genus_AH_standarized.txt', 'OTU_AH_standarized.txt')
 source(file.path('src', 'rf_permutation_test.R'))
+source(file.path('src', 'log_transform.R'))
 ```
 
-## The significance of prot_000000000877 to OTU_11
 
 ```{r}
 log_transform = function(x) {
