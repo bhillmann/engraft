@@ -8,3 +8,7 @@ log_transform = function(x) {
   # Log that value
   log(x)
 }
+
+prevalence = function(x, threshold = .25) {
+  x[,colMeans(x > 0) >= threshold]
+}

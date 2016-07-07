@@ -10,7 +10,7 @@ library(randomForest)
 accuracy <- NULL
 for(a in 1:1000)
 {
-  work.subset.rf <- heatmap.rf(work.subset[,2:n.otus],as.factor(work.subset$Persistence),nfolds=-1)  
+  work.subset.rf <- heatmap.rf(work.subset[,2:n.otus],=as.factor(work.subset$Persistence),nfolds=-1)  
   accuracy[a] <- sum(work.subset.rf$y == work.subset.rf$predicted)/length(work.subset.rf$y)
 }
 print(mean(accuracy))

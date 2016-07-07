@@ -7,35 +7,21 @@ output: pdf_document
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 infiles = c('RDP_family_AH_standarized.txt',
-            'RDP_genus_AH_standarized.txt', 'OTU_AH_standarized.txt')
+            'RDP_genus_AH_standarized.txt', 'OTU_AH_standarized.txt', 'genes_CEFITH_standardized.txt')
 source(file.path('src', 'rf_permutation_test.R'))
-source(file.path('src', 'log_transform.R'))
+source(file.path('src', 'preprocess.R'))
+source(file.path('src', 'cross_validation.R'))
 ```
 
 
 ```{r}
-log_transform = function(x) {
-  constant = min(x[x > 0])/2.
-  x = x + constant
-  x = x/sum(x)
-  log(x)
-}
-
-otu_log_mat = t(apply(preprocess_mat(infiles[3]), 1, log_transform))
-genus_log_mat = t(apply(preprocess_mat(infiles[2]), 1, log_transform))
-family_log_mat = t(apply(preprocess_mat(infiles[1]), 1, log_transform))
-
 mapping_maria = load_data_table('mapping_maria_BL.txt')
 
-dependent = as.factor(mapping_maria$Persistence)
-acc_1 = permutation_test(otu_log_mat, dependent, num_permutations = 10)
-acc_2 = permutation_test(genus_log_mat, dependent, num_permutations = 10)
-acc_3 = permutation_test(family_log_mat, dependent, num_permutations = 10)
+dependent = mapping_maria$Persistence
 
-```
-
-```{r}
-print(acc_1)
-print(acc_2)
-print(acc_3)
+for (file in infiles) {
+  print(file)
+  results = permutation_test(prevalence(preprocess_mat(file)), dependent)
+  print(mean(results$permutation_errs >= results$err))
+}
 ```
